@@ -21,3 +21,5 @@ Route::get('/test2','TestController@test2');
 Route::get('/info',function (){
 	phpinfo();
 });
+//微信
+Route::any('/weixin','Weixin\IndexController@index');
