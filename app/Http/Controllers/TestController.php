@@ -10,14 +10,14 @@ class TestController extends Controller
     public function test1()
     {
 
-    	// echo __METHOD__;
+    	echo __METHOD__;
 
-    	// $list = DB::table('user')->limit(3)->get();
-    	// dd($list);
+    	$list = DB::table('user')->limit(3)->get();
+    	dd($list);
 
-    	$key = 'wx2004';
-    	Redis::set($key,time());
-    	echo Redis::get($key);
+    	// $key = 'wx2004';
+    	// Redis::set($key,time());
+    	// echo Redis::get($key);
 
     }
 
