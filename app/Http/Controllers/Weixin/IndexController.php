@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Redis;
 class IndexController extends Controller
 {
     public function index(){
-
+//微信接入
     $signature = $_GET["signature"];
     $timestamp = $_GET["timestamp"];
     $nonce = $_GET["nonce"];
