@@ -22,6 +22,6 @@ Route::get('/info',function (){
 	phpinfo();
 });
 //微信接入
-Route::any('/weixin','Weixin\IndexController@index');
+Route::get('/wx','\WxController@index');
 
 Route::get('/weixin/token','Weixin\IndexController@getAccessToken');//获取access_token
