@@ -8,22 +8,30 @@ use Illuminate\Support\Facades\Redis;
 class IndexController extends Controller
 {
     public function index(){
-//微信接入
+    	$result = $this->checkSignature();
+    	if($result){
+    		echo $_GET["echostr"];
+    		exit;
+    	}
+    }
+
+    private function checkSignature(){
+
     $signature = $_GET["signature"];
     $timestamp = $_GET["timestamp"];
     $nonce = $_GET["nonce"];
 	
-    $token = env('WX_TOKEN');
+    $token = config('weixin.Token');
     $tmpArr = array($token, $timestamp, $nonce);
     sort($tmpArr, SORT_STRING);
     $tmpStr = implode( $tmpArr );
     $tmpStr = sha1( $tmpStr );
     
     if( $tmpStr == $signature ){
-        echo $_GET['echostr'];
+        return true;
     }else{
-        echo "110";
-    }	
+        return false;
+    }
 }
 
 //获取access_token
