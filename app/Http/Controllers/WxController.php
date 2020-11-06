@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 class WxController extends Controller
 {
+
+	//处理事件推送
     public function wxEvent(){
 
     $signature = $_GET["signature"];
@@ -19,10 +21,19 @@ class WxController extends Controller
     $tmpStr = sha1( $tmpStr );
     
     if( $tmpStr == $signature ){  //验证通过
-       echo "";
+
+    	//1/接收数据
+    	$xml_str = file_get_contents("php://input");
+
+    	//记录日志
+    	file_get_contents('wx_event.log',$xml_str);
+    	echo "";
+    	die;
+
+    	
 
     }else{
-        echo "110";
+        echo "";
     }
     }
 }
