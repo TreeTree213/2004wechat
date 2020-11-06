@@ -21,5 +21,7 @@ Route::get('/test2','TestController@test2');
 Route::get('/info',function (){
 	phpinfo();
 });
-//微信
+//微信接入
 Route::any('/weixin','Weixin\IndexController@index');
+
+Route::get('/weixin/token','Weixin\IndexController@getAccessToken');//获取access_token
