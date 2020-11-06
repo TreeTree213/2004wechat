@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class WxController extends Controller
 {
-    public function index(){
+    public function wxEvent(){
 
     $signature = $_GET["signature"];
     $timestamp = $_GET["timestamp"];
@@ -18,8 +18,9 @@ class WxController extends Controller
     $tmpStr = implode( $tmpArr );
     $tmpStr = sha1( $tmpStr );
     
-    if( $tmpStr == $signature ){
-        echo $_GET["echostr"];
+    if( $tmpStr == $signature ){  //验证通过
+       echo "";
+
     }else{
         echo "110";
     }
