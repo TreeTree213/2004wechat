@@ -17,6 +17,7 @@ Route::get('/', function () {
 
 Route::get('/test1','TestController@test1');
 Route::get('/test2','TestController@test2');
+Route::post('/test3','TestController@test3');
 
 Route::get('/info',function (){
 	phpinfo();

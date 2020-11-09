@@ -25,4 +25,17 @@ class TestController extends Controller
     public function test2(){
     	echo __METHOD__;
     }
+
+
+
+    public function test3(){
+        //echo '<pre>';print_r($_POST);echo '</pre>';
+        $xml_str = file_get_contents("php://input");
+       
+
+       //将xml转换为 对象或数组
+       $xml_obj = simplexml_load_string($xml_str);
+       // echo '<pre>';print_r($xml_str);echo '</pre>';
+       echo $xml_obj->ToUserName;
+    }
 }
