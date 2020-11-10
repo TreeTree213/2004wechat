@@ -26,3 +26,10 @@ Route::get('/info',function (){
 Route::post('/wx','WxController@wxEvent');//接收事件推送
 
 Route::get('/weixin/token','Weixin\IndexController@getAccessToken');//获取access_token
+
+
+
+Route::prefix('/test')->group(function(){
+	Route::get('/guzzle1','TestController@guzzle1');
+	Route::get('/guzzle2','Weixin\IndexController@guzzle2');
+});
