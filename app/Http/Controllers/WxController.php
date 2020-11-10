@@ -29,7 +29,7 @@ class WxController extends Controller
     	file_put_contents('wx_event.log',$xml_str,FILE_APPEND);
 
     	//将接受的数据转化为对象
-    	$obj = simpLexml_Load_string($xml_str);//将文件转换为对象
+    	$obj = simpLexmL_Load_string($xml_str);//将文件转换为对象
 
     	if($obj->MsgType =="event"){
     		if($obj->Event == "subscribe"){
@@ -58,7 +58,7 @@ class WxController extends Controller
 	  <ToUserName><![CDATA[".$ToUserName."]]></ToUserName>
 	  <FromUserName><![CDATA[".$FromUserName."]]></FromUserName>
 	  <CreateTime>time()</CreateTime>
-	  <MsgType><![CDATA[%s]]></MsgType>
+	  <MsgType><![CDATA[text]]></MsgType>
 	  <Content><![CDATA[".$content."]]></Content>
 	  <MsgId>%s</MsgId>
 	  </xml>";
