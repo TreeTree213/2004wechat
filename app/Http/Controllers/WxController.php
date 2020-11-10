@@ -29,10 +29,10 @@ class WxController extends Controller
     	file_put_contents('wx_event.log',$xml_str,FILE_APPEND);
 
     	//将接受的数据转化为对象
-    	$obj = simplexml_load_string($xml_str);//将文件转换为对象
+    	$obj = simpLexml_Load_string($xml_str);//将文件转换为对象
 
     	if($obj->MsgType =="event"){
-    		if($obj->Event == "subscribe")
+    		if($obj->Event == "subscribe"){
     		$content="欢迎关注";
     		echo $this->huifu($obj,$content);
     	}
