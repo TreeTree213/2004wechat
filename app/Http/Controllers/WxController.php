@@ -66,4 +66,7 @@ class WxController extends Controller
 	  echo $xml;
   }
 
+
+
+
 }

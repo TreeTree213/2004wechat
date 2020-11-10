@@ -23,12 +23,13 @@ Route::get('/info',function (){
 	phpinfo();
 });
 //微信接入
-Route::prefix('/wx')->group(function){
-	Route::post('/wx','WxController@index');//接入
-Route::post('/wx','WxController@wxEvent');//接收事件推送
-}
+Route::prefix('/wx')->group(function(){
+Route::post('/','WxController@index');//接入
+Route::post('/','WxController@wxEvent');//接收事件推送
+});
 Route::get('/weixin/token','Weixin\IndexController@getAccessToken');//获取access_token
 
+Route::get('/weixin/createmenu','Weixin\IndexController@createmenu');//自定义菜单
 
 
 Route::prefix('/test')->group(function(){

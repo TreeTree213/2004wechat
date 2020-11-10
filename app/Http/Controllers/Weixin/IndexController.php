@@ -75,4 +75,42 @@ class IndexController extends Controller
 
 
 
+      public function createmenu(){
+
+    $access_token = $this->getAccessToken();
+
+  $url = 'https://api.weixin.qq.com/cgi-bin/menu/create?access_token='.$access_token;
+
+
+  $menu = [
+
+        'button' => [
+            [
+            'type' => 'click',
+            'name' => 'wx2004',
+            'key'  => 'k_wx2004'
+        ],
+
+            [
+            'type' => 'view',
+            'name' => 'BILIBILI',
+            'url'  => 'http://www.bilibili.com'
+        ],
+        ]
+  ];
+
+         //使用guzzle发送get请求
+        $client = new Client();  //实例化客户端
+        $response = $client->request('POST',$url,[
+            'verify' => false,
+            'body' => json_encode($menu)
+
+        ]);     //发送请求并接受响应
+
+        $data = $response->getBody();
+        echo $data;
+  }
+
+
+
 }
