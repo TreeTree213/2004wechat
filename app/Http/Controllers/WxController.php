@@ -118,8 +118,8 @@ class WxController extends Controller
                 'sub_button'=>[
              [
                     'type'=>'view',
-                    'name'=>'百度',
-                    'url'=>'http://www.baidu.com'
+                    'name'=>'品优购',
+                    'url'=>'http://laravel.mayatong.top/'
 
                ],
 
@@ -254,7 +254,7 @@ if($data->MsgType=="text"){
     }
     //file_put_contents("tianqi.txt",$content);
 
-    echo $this->responseMsg($data,$content);
+    echo $this->responseMsg($data,$content);   
 
 }
 
