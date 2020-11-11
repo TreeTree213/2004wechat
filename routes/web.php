@@ -33,7 +33,7 @@ Route::get('/createmenu','WxController@createmenu');//自定义菜单
 
 });
 
-Route::get('/wx','WxController@event');//关注回复//接收事件推送
+Route::post('/wx','WxController@event');//关注回复//接收事件推送
 
 Route::prefix('/test')->group(function(){
 	Route::get('/guzzle1','TestController@guzzle1');
