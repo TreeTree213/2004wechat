@@ -26,10 +26,12 @@ Route::get('/info',function (){
 Route::prefix('/wx')->group(function(){
 Route::post('/','WxController@index');//接入
 Route::post('/','WxController@wxEvent');//接收事件推送
-Route::get('/token','WxController@getAccessToken');
+Route::get('/token','WxController@getAccessToken');//获取access_token
+Route::get('/createmenu','WxController@createmenu');//自定义菜单
 });
-Route::get('/weixin/token','Weixin\IndexController@getAccessToken');//获取access_token
 
+
+Route::get('/weixin/token','Weixin\IndexController@getAccessToken');//获取access_token
 Route::get('/weixin/createmenu','Weixin\IndexController@createmenu');//自定义菜单
 Route::get('/weixin/event','Weixin\IndexController@event');//关注回复
 

@@ -22,11 +22,11 @@ class WxController extends Controller
     $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=".env('WX_APPID')."&secret=".env('WX_APPSECRET');
 
 
-        // //使用guzzle发送get请求
-        // $client = new Client();  //实例化客户端
-        // $response = $client->request('GET',$url,['verify'=>false]);     //发送请求并接受响应
+        //使用guzzle发送get请求
+        $client = new Client();  //实例化客户端
+        $response = $client->request('GET',$url,['verify'=>false]);     //发送请求并接受响应
 
-        // $json_str = $response->getBody();          //服务器的响应数据
+        $json_str = $response->getBody();          //服务器的响应数据
 
 
 
@@ -47,7 +47,112 @@ class WxController extends Controller
     return $token;
  }
 
-	
+
+ //上传素材
+    public function guzzle2(){
+        $access_token = $this->getAccessToken();
+        $type         = 'image';
+        $url = 'https://api.weixin.qq.com/cgi-bin/media/upload?access_token='.$access_token.'&type='.$type;
+
+         //使用guzzle发送get请求
+        $client = new Client();  //实例化客户端
+        $response = $client->request('POST',$url,[
+            'verify' => false,
+            'multipart' => [
+            [
+
+             'name' => 'media',
+             'contents' => fopen('xunrou.jpg','r')
+             ],  //上传文件的路径
+
+        ]
+
+        ]);     //发送请求并接受响应
+
+        $data = $response->getBody();
+        echo $data;
+    }
+
+     public function createmenu(){
+
+    $access_token = $this->getAccessToken();
+
+  $url = 'https://api.weixin.qq.com/cgi-bin/menu/create?access_token='.$access_token;
+
+
+  $menu = [
+
+        'button' => [
+
+              [
+            'name'=>'发送图片',
+            'sub_button'=>[
+
+        [
+            'type' => 'pic_sysphoto',
+            'name' => '拍照',
+            'key'  => 'rselfmenu_1',
+            'sub_button' => []
+        ],
+
+         [
+            'type' => 'pic_photo_or_album',
+            'name' => '拍照或相册',
+            'key'  => 'rselfmenu_2',
+            'sub_button' => []
+        ],
+
+         [
+            'type' => 'pic_weixin',
+            'name' => '微信相册',
+            'key'  => 'rselfmenu_3',
+            'sub_button' => []
+        ]
+
+   ]
+],
+
+            [
+                'name'=>'工具',
+                'sub_button'=>[
+             [
+                    'type'=>'view',
+                    'name'=>'百度',
+                    'url'=>'http://www.baidu.com'
+
+               ],
+
+               [
+                'type' => 'click',
+                'name' => '天气',
+                'key'  => '10086'
+
+               ]
+           ]
+
+            ],
+
+            [
+            'type' => 'view',
+            'name' => 'BILIBILI',
+            'url'  => 'http://www.bilibili.com'
+        ],
+        ]
+  ];
+
+         //使用guzzle发送get请求
+        $client = new Client();  //实例化客户端
+        $response = $client->request('POST',$url,[
+            'verify' => false,
+            'body' => json_encode($menu,JSON_UNESCAPED_UNICODE)
+
+        ]);     //发送请求并接受响应
+
+        $data = $response->getBody();
+        echo $data;
+  }
+
+
 
 	//处理事件推送
     public function wxEvent(){
