@@ -20,7 +20,7 @@ class WxController extends Controller
     $tmpStr = implode( $tmpArr );
     $tmpStr = sha1( $tmpStr );
     
-    iif( $tmpStr == $signature ) {
+    if( $tmpStr == $signature ) {
              //1、接收数据
             $xml_data = file_get_contents("php://input");
             //记录日志
