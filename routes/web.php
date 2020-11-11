@@ -30,6 +30,7 @@ Route::post('/','WxController@wxEvent');//接收事件推送
 Route::get('/weixin/token','Weixin\IndexController@getAccessToken');//获取access_token
 
 Route::get('/weixin/createmenu','Weixin\IndexController@createmenu');//自定义菜单
+Route::get('/weixin/event','Weixin\IndexController@event');//关注回复
 
 
 Route::prefix('/test')->group(function(){

@@ -48,23 +48,23 @@ class WxController extends Controller
     }
     }
 
-  public function huifu($obj,$content){
-  	$ToUserName = $obj->FromUserName;
-  	$FromUserName = $obj->ToUserName;
-  	$time = time();
+  // public function huifu($obj,$content){
+  // 	$ToUserName = $obj->FromUserName;
+  // 	$FromUserName = $obj->ToUserName;
+  // 	$time = time();
 
 
-  	$xml = "<xml>
-	  <ToUserName><![CDATA[".$ToUserName."]]></ToUserName>
-	  <FromUserName><![CDATA[".$FromUserName."]]></FromUserName>
-	  <CreateTime>time()</CreateTime>
-	  <MsgType><![CDATA[text]]></MsgType>
-	  <Content><![CDATA[".$content."]]></Content>
-	  <MsgId>%s</MsgId>
-	  </xml>";
+  // 	$xml = "<xml>
+	 //  <ToUserName><![CDATA[".$ToUserName."]]></ToUserName>
+	 //  <FromUserName><![CDATA[".$FromUserName."]]></FromUserName>
+	 //  <CreateTime>time()</CreateTime>
+	 //  <MsgType><![CDATA[text]]></MsgType>
+	 //  <Content><![CDATA[".$content."]]></Content>
+	 //  <MsgId>%s</MsgId>
+	 //  </xml>";
 
-	  echo $xml;
-  }
+	 //  echo $xml;
+  // }
 
 
 
