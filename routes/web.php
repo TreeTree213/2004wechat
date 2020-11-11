@@ -25,13 +25,13 @@ Route::get('/info',function (){
 //微信接入
 Route::prefix('/wx')->group(function(){
 Route::post('/','WxController@index');//接入
-Route::post('/','WxController@wxEvent');//接收事件推送
+// Route::post('/','WxController@wxEvent');//接收事件推送
+
+Route::get('/token','Weixin\WxController@getAccessToken');//获取access_token
+
+Route::get('/createmenu','Weixin\WxController@createmenu');//自定义菜单
+Route::get('/event','Weixin\WxController@event');//关注回复
 });
-Route::get('/weixin/token','Weixin\IndexController@getAccessToken');//获取access_token
-
-Route::get('/weixin/createmenu','Weixin\IndexController@createmenu');//自定义菜单
-Route::get('/weixin/event','Weixin\IndexController@event');//关注回复
-
 
 Route::prefix('/test')->group(function(){
 	Route::get('/guzzle1','TestController@guzzle1');
