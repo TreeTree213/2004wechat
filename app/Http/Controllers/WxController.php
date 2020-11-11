@@ -3,9 +3,51 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 use GuzzleHttp\Client;
 class WxController extends Controller
 {
+
+ public function getAccessToken(){
+
+    $key = 'WX:access_token';
+
+    //检查是否有token
+    $token = Redis::get($key);
+    if($token){
+        echo "有缓存";echo'</br>';
+        
+    }else{
+       
+    $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=".env('WX_APPID')."&secret=".env('WX_APPSECRET');
+
+
+        //使用guzzle发送get请求
+        $client = new Client();  //实例化客户端
+        $response = $client->request('GET',$url,['verify'=>false]);     //发送请求并接受响应
+
+        $json_str = $response->getBody();          //服务器的响应数据
+
+
+
+
+ 
+
+    $data = json_decode($json_str,true);
+    $token = $data['access_token'];
+
+
+    //保存到redis 中  时间为3600
+
+    Redis::set($key,$token);
+    Redis::expire($key,3600);
+
+    }
+    
+    return $token;
+ }
+
+	
 
 	//处理事件推送
     public function wxEvent(){

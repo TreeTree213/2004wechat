@@ -26,6 +26,7 @@ Route::get('/info',function (){
 Route::prefix('/wx')->group(function(){
 Route::post('/','WxController@index');//接入
 Route::post('/','WxController@wxEvent');//接收事件推送
+Route::get('/token','WxController@getAccessToken');
 });
 Route::get('/weixin/token','Weixin\IndexController@getAccessToken');//获取access_token
 
