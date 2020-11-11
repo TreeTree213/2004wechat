@@ -86,9 +86,9 @@ class IndexController extends Controller
 
         'button' => [
 
-              [
-        'name'=>'发送图片',
-        'sub_button'=>[
+            [
+            'name'=>'发送图片',
+            'sub_button'=>[
 
         [
             'type' => 'pic_sysphoto',
@@ -106,14 +106,13 @@ class IndexController extends Controller
 
          [
             'type' => 'pic_weixin',
-            'name' => '相册',
+            'name' => '微信相册',
             'key'  => 'rselfmenu_3',
             'sub_button' => []
         ]
 
-     ]
-
-],
+   ]
+  ],
 
             [
                 'name'=>'工具',
