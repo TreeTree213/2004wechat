@@ -28,14 +28,7 @@ class WxController extends Controller
     	//记录日志
     	file_put_contents('wx_event.log',$xml_str,FILE_APPEND);
 
-    	//将接受的数据转化为对象
-    	$obj = simpLexmL_Load_string($xml_str);//将文件转换为对象
-
-    	if($obj->MsgType =="event"){
-    		if($obj->Event == "subscribe"){
-    		$content="欢迎关注";
-    		echo $this->huifu($obj,$content);
-    	}
+    	
     }
 
     	echo "";
@@ -48,25 +41,25 @@ class WxController extends Controller
     }
     }
 
-  // public function huifu($obj,$content){
-  // 	$ToUserName = $obj->FromUserName;
-  // 	$FromUserName = $obj->ToUserName;
-  // 	$time = time();
-
-
-  // 	$xml = "<xml>
-	 //  <ToUserName><![CDATA[".$ToUserName."]]></ToUserName>
-	 //  <FromUserName><![CDATA[".$FromUserName."]]></FromUserName>
-	 //  <CreateTime>time()</CreateTime>
-	 //  <MsgType><![CDATA[text]]></MsgType>
-	 //  <Content><![CDATA[".$content."]]></Content>
-	 //  <MsgId>%s</MsgId>
-	 //  </xml>";
-
-	 //  echo $xml;
-  // }
 
 
 
 
+     //关注回复
+    public function responseMsg($array,$Content){
+                $ToUserName = $array->FromUserName;
+                $FromUserName = $array->ToUserName;
+                $CreateTime = time();
+                $MsgType = "text";
+
+                $text = "<xml>
+                  <ToUserName><![CDATA[%s]]></ToUserName>
+                  <FromUserName><![CDATA[%s]]></FromUserName>
+                  <CreateTime>%s</CreateTime>
+                  <MsgType><![CDATA[%s]]></MsgType>
+                  <Content><![CDATA[%s]]></Content>
+                </xml>";
+                echo sprintf($text,$ToUserName,$FromUserName,$CreateTime,$MsgType,$Content);
+
+ 
 }
