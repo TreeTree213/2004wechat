@@ -20,51 +20,81 @@ class WxController extends Controller
     $tmpStr = implode( $tmpArr );
     $tmpStr = sha1( $tmpStr );
     
-    if( $tmpStr == $signature ){  //验证通过
+    iif( $tmpStr == $signature ) {
+             //1、接收数据
+            $xml_data = file_get_contents("php://input");
+            //记录日志
+            file_put_contents('wx_event.log',$xml_data);
 
-    	//1、接收数据
-    	$xml_str = file_get_contents("php://input") . "\n\n";
+            //2、把xml文本转换成为php的对象或数组
+            $data = simplexml_load_string($xml_data,'SimpleXMLElement',LIBXML_NOCDATA);
 
-    	//记录日志
-    	file_put_contents('wx_event.log',$xml_str,FILE_APPEND);
+              if($data->MsgType=="event"){
+                 if($data->Event=="subscribe"){
+                   $access_token = $this->getAccessToken();
+                    $openid = $data->FromUserName;
+           $url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=".$access_token."&openid=".$openid."&lang=zh_CN";
+                    $user = file_get_contents($url);
+                    $res = json_decode($user,true);
 
-    	//将接受的数据转化为对象
-    	$obj = simpLexmL_Load_string($xml_str);//将文件转换为对象
+                     if(isset($res['errcode'])){
+                        file_put_contents('wx_event.log',$res['errcode']);
+                    }else{
+                        $user_id = User_info::where('openid',$openid)->first();
+                         if($user_id){
+                            $user_id->subscribe=1;
+                            $user_id->save();
+                            $contentt = "感谢再次关注";
+                        }else{
 
-    	if($obj->MsgType =="event"){
-    		if($obj->Event == "subscribe"){
-    		$content="欢迎关注";
-    		echo $this->huifu($obj,$content);
-    	}
-    }
+                             $res = [
+                                'subscribe'=>$res['subscribe'],
+                                'openid'=>$res['openid'],
+                                'nickname'=>$res['nickname'],
+                                'sex'=>$res['sex'],
+                                'city'=>$res['city'],
+                                'country'=>$res['country'],
+                                'province'=>$res['province'],
+                                'language'=>$res['language'],
+                                'headimgurl'=>$res['headimgurl'],
+                                'subscribe_time'=>$res['subscribe_time'],
+                                'subscribe_scene'=>$res['subscribe_scene']
 
-    	echo "";
-    	die;
+                            ];
+                            User_info::insert($res);
+                            $contentt = "欢迎老铁关注";
+                 }
+              }
+        }
 
-    	
+             //取消关注
+                if($data->Event=='unsubscribe'){
+                    $user_id->subscribe=0;
+                    $user_id->save();
+                }
+                echo $this->responseMsg($data,$contentt);
 
-    }else{
-        echo "";
-    }
-    }
+                    }
+        }else{
+            echo "";
+  }
+}
 
-  // public function huifu($obj,$content){
-  // 	$ToUserName = $obj->FromUserName;
-  // 	$FromUserName = $obj->ToUserName;
-  // 	$time = time();
+ //关注回复
+    public function responseMsg($array,$Content){
+                $ToUserName = $array->FromUserName;
+                $FromUserName = $array->ToUserName;
+                $CreateTime = time();
+                $MsgType = "text";
 
-
-  // 	$xml = "<xml>
-	 //  <ToUserName><![CDATA[".$ToUserName."]]></ToUserName>
-	 //  <FromUserName><![CDATA[".$FromUserName."]]></FromUserName>
-	 //  <CreateTime>time()</CreateTime>
-	 //  <MsgType><![CDATA[text]]></MsgType>
-	 //  <Content><![CDATA[".$content."]]></Content>
-	 //  <MsgId>%s</MsgId>
-	 //  </xml>";
-
-	 //  echo $xml;
-  // }
+                $text = "<xml>
+                  <ToUserName><![CDATA[%s]]></ToUserName>
+                  <FromUserName><![CDATA[%s]]></FromUserName>
+                  <CreateTime>%s</CreateTime>
+                  <MsgType><![CDATA[%s]]></MsgType>
+                  <Content><![CDATA[%s]]></Content>
+                </xml>";
+                echo sprintf($text,$ToUserName,$FromUserName,$CreateTime,$MsgType,$Content);
 
 
 

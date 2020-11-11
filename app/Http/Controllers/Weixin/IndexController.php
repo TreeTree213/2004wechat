@@ -86,7 +86,7 @@ class IndexController extends Controller
 
         'button' => [
 
-            [
+              [
             'name'=>'发送图片',
             'sub_button'=>[
 
@@ -112,7 +112,7 @@ class IndexController extends Controller
         ]
 
    ]
-  ],
+],
 
             [
                 'name'=>'工具',
