@@ -128,6 +128,12 @@ class WxController extends Controller
                 'name' => '天气',
                 'key'  => '10086'
 
+               ],
+               [
+               	'type' => 'click',
+               	'name' => '签到',
+               	'text' => '签到成功'
+
                ]
            ]
 
@@ -280,4 +286,10 @@ if($data->MsgType=="text"){
 
 
 }
+
+
+
+   public function dlmedia(){
+   	
+   }
 }
