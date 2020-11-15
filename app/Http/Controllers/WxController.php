@@ -126,7 +126,7 @@ class WxController extends Controller
                [
                 'type' => 'view',
                 'name' => '每日推荐',
-                'key'  => 'http://laravel.mayatong.top/item/2'
+                'url'  => 'http://laravel.mayatong.top/item/2'
 
                ],
                [
