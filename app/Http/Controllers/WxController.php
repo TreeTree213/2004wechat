@@ -124,15 +124,15 @@ class WxController extends Controller
                ],
 
                [
-                'type' => 'click',
-                'name' => '天气',
-                'key'  => '10086'
+                'type' => 'view',
+                'name' => '每日推荐',
+                'key'  => 'http://laravel.mayatong.top/item/2'
 
                ],
                [
                	'type' => 'click',
                	'name' => '签到',
-               	'text' => '签到成功'
+               	'key' => 'V1001_TODAY_QQ'
 
                ]
            ]
@@ -263,8 +263,26 @@ if($data->MsgType=="text"){
     echo $this->responseMsg($data,$content);   
 
 }
-
+if($data->Event=="CLICK"){
+                if($data->EventKey=="V1001_TODAY_QQ"){
+                    $key = '1233455';
+                    $openid = $data->ToUserName;
+                    $slsmember = Redis::sismember($key,$openid);
+                    if($slsmember=='1'){
+                        $content = "已签到";
+                        $this->checkText($data,$content);
+                    }else{
+                        $content = "签到成功";
+                        Redis::sAdd($key,$openid);
+                        $this->responseMsg($data,$content);
+                    }
+                }
+            }
+            
+                 $openid = $data->FromUserName;//获取发送方的 openid
+            $url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=" . $access_token . "&openid=" . $openid . "&lang=zh_CN";
 }
+
 
  //关注回复
     public function responseMsg($array,$Content){
