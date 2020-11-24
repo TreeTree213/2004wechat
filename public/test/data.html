@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Titlr</title>
+</head>
+<body>
+		<p id="ppp" data-goodsid="1234" data-goods_name="狗子">Hello World</p>
+
+	<script type="text/javascript">
+			let p =document.getElementById('ppp');
+			console.log(p.dataset);
+
+			let goods_id = p.dataset.goodsid;
+			alert(goods_id);
+	</script>
+</body>
+</html>
